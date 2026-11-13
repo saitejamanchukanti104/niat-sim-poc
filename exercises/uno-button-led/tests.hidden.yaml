@@ -1,0 +1,58 @@
+checks:
+  - id: builds
+    title: Code compiles
+    type: compiles
+    marks: 1
+  - id: prints_ready
+    title: Prints READY at start-up
+    type: serial_contains
+    text: "READY"
+    within_ms: 500
+    marks: 2
+  - id: led_off_idle
+    title: LED off while button not pressed
+    type: pin_state
+    pin: D13
+    value: 0
+    at_ms: 800
+    marks: 1
+  - id: press
+    title: "Step: press the button"
+    type: set_input
+    pin: D2
+    value: 1
+    at_ms: 1000
+  - id: led_on_pressed
+    title: LED on while button pressed
+    type: pin_state
+    pin: D13
+    value: 1
+    at_ms: 1200
+    marks: 2
+  - id: prints_pressed
+    title: Prints PRESSED after the press
+    type: serial_contains
+    text: "PRESSED"
+    after_ms: 1000
+    within_ms: 1300
+    marks: 2
+  - id: release
+    title: "Step: release the button"
+    type: set_input
+    pin: D2
+    value: 0
+    at_ms: 1600
+  - id: led_off_released
+    title: LED off after release
+    type: pin_state
+    pin: D13
+    value: 0
+    at_ms: 1800
+    marks: 1
+  - id: pressed_once
+    title: PRESSED printed once per press (not repeated)
+    type: serial_count
+    text: "PRESSED"
+    expect: 1
+    marks: 1
+    hint: Remember the previous button state and print only when it changes from released to pressed.

@@ -1,0 +1,12 @@
+checks:
+  - id: builds
+    title: Code compiles
+    type: compiles
+    marks: 1
+  - id: prints_ready
+    title: Prints READY at start-up
+    type: serial_contains
+    text: "READY"
+    within_ms: 500
+    marks: 2
+    hint: Call Serial.begin(115200) and Serial.println("READY") in setup().

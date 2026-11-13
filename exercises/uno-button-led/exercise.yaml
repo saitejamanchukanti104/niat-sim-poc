@@ -1,0 +1,12 @@
+id: uno-button-led
+title: "Arduino Uno: Button controls LED"
+course: Applied IoT
+board: uno
+language: arduino
+editable: sketch.ino
+duration_ms: 2500
+attempts: 5
+task: |
+  Turn on the built-in LED (pin 13) while the push button on pin 2 is pressed,
+  and turn it off when released. Print READY at start-up and PRESSED once
+  per press on Serial at 115200 baud.
