@@ -1,0 +1,13 @@
+# Practice tests: students can run these as often as they like.
+checks:
+  - id: builds
+    title: Code compiles
+    type: compiles
+    marks: 1
+  - id: prints_ready
+    title: Prints READY on USART1
+    type: serial_contains
+    text: "READY"
+    within_ms: 1000
+    marks: 3
+    hint: Enable the USART1 and GPIOA clocks, set PA9 to alternate-function output, set BRR and CR1 (UE, TE).

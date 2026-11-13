@@ -1,0 +1,44 @@
+# Graded tests: kept on the server, never sent to the browser.
+checks:
+  - id: builds
+    title: Code compiles
+    type: compiles
+    marks: 1
+  - id: no_hal
+    title: No HAL used (bare metal only)
+    type: static_forbid
+    pattern: "stm32f1xx_hal"
+    on_fail: zero_total
+    marks: 0
+  - id: gpioc_clock_on
+    title: GPIOC clock enabled (RCC_APB2ENR.IOPCEN)
+    type: register_bits
+    address: 0x40021018
+    mask: 0x00000010
+    expect: 0x00000010
+    marks: 1
+    hint: Set bit 4 (IOPCEN) in RCC_APB2ENR before touching GPIOC.
+  - id: pc13_is_output
+    title: PC13 configured as 2 MHz push-pull output
+    type: register_bits
+    address: 0x40011004
+    mask: 0x00F00000
+    expect: 0x00200000
+    marks: 2
+    hint: PC13 lives in GPIOC_CRH bits 23:20. MODE=10, CNF=00 gives 0x2.
+  - id: prints_ready
+    title: Prints READY on USART1 within 1 s
+    type: serial_contains
+    text: "READY"
+    within_ms: 1000
+    marks: 3
+    hint: Enable the USART1 and GPIOA clocks, set PA9 to alternate-function output, set BRR and CR1 (UE, TE).
+  - id: blink_500ms
+    title: PC13 toggles every 500 ms
+    type: pin_toggle_period
+    pin: PC13
+    expect_ms: 500
+    tolerance_ms: 25
+    samples: 4
+    marks: 3
+    hint: Check your SysTick reload value (8000 - 1 for 1 ms at 8 MHz) and how many ticks you wait.

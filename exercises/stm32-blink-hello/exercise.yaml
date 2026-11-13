@@ -1,0 +1,15 @@
+id: stm32-blink-hello
+title: "STM32 bare metal: Blink and Hello"
+course: Microcontrollers
+board: stm32f103-bluepill
+language: c
+editable: main.c
+readonly_files:
+  startup.c: toolchains/stm32/startup.c
+  linker.ld: toolchains/stm32/linker.ld
+duration_ms: 2600
+attempts: 5
+task: |
+  Without HAL, make the on-board LED (PC13) blink every 500 ms using SysTick
+  (poll COUNTFLAG, no interrupts), and print READY once on USART1
+  (PA9, 115200 baud) at start-up. The core clock is the 8 MHz internal oscillator.
