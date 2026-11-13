@@ -1,0 +1,29 @@
+{
+  "name": "niat-sim-poc",
+  "version": "1.0.0",
+  "description": "NIAT Embedded Lab: online simulator + auto-evaluation POC (STM32 Blue Pill bare metal, Arduino Uno)",
+  "scripts": {
+    "start": "node server/index.js",
+    "build": "node scripts/build-web.js",
+    "selftest": "node scripts/selftest.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@codemirror/lang-cpp": "^6.0.3",
+    "@codemirror/state": "^6.7.6",
+    "@codemirror/theme-one-dark": "^6.1.3",
+    "@wokwi/elements": "^1.9.2",
+    "avr8js": "^0.21.1",
+    "codemirror": "^6.0.2",
+    "esbuild": "^0.28.2",
+    "express": "^5.3.0",
+    "js-yaml": "^5.5.0",
+    "ws": "^8.23.0"
+  },
+  "type": "module",
+  "devDependencies": {
+    "puppeteer-core": "^25.17.0"
+  },
+  "private": true
+}
