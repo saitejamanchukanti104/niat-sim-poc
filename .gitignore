@@ -1,0 +1,4 @@
+node_modules/
+data/
+*.log
+web/public/app.js
