@@ -1,0 +1,17 @@
+{
+  "name": "NIAT Embedded Lab POC",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": { "version": "22" }
+  },
+  "hostRequirements": { "cpus": 2 },
+  "onCreateCommand": "bash .devcontainer/setup.sh",
+  "postStartCommand": "nohup npm start > /tmp/niat-server.log 2>&1 &",
+  "forwardPorts": [8080],
+  "portsAttributes": {
+    "8080": { "label": "NIAT Embedded Lab", "onAutoForward": "openBrowser" }
+  },
+  "customizations": {
+    "codespaces": { "openFiles": ["START-HERE.md"] }
+  }
+}
