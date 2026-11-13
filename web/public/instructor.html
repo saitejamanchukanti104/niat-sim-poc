@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>NIAT Embedded Lab — Instructor view (POC)</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Ccircle cx=%228%22 cy=%228%22 r=%226%22 fill=%22%234ade80%22/%3E%3C/svg%3E">
+<style>
+  main { padding: 16px; display: grid; gap: 16px; }
+  table.res td, table.res th { font-size: 13px; }
+  pre.code { background: #0f1724; color: #e2e8f0; padding: 10px; border-radius: 6px; font: 12px/1.5 var(--mono); max-height: 360px; overflow: auto; white-space: pre; }
+</style>
+</head>
+<body>
+<header class="top"><div class="brand"><span class="dot"></span>NIAT Embedded Lab <span class="tag">INSTRUCTOR</span></div><a class="link" href="/">Student view</a></header>
+<main>
+  <div class="card"><h2>Gradebook (best score per exercise)</h2><div id="gb"></div></div>
+  <div class="card"><h2>Renode export for STM32 hidden tests</h2>
+    <p class="note">The same test file, translated into Renode files. Template for the production grader (not executed in this POC).</p>
+    <div id="renode"></div></div>
+</main>
+<script>
+const esc = (s) => String(s ?? '').replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
+async function load() {
+  const { exercises, gradebook } = await fetch('/api/gradebook').then((r) => r.json());
+  const students = Object.keys(gradebook);
+  if (!students.length) { document.getElementById('gb').innerHTML = '<p class="muted">No graded submissions yet.</p>'; }
+  else {
+    const head = `<tr><th>Student</th>${exercises.map((e) => `<th>${esc(e.title)}</th>`).join('')}</tr>`;
+    const rows = students.map((s) => `<tr><td>${esc(s)}</td>${exercises.map((e) => {
+      const x = gradebook[s][e.id];
+      return `<td>${x ? `<b>${x.best}/${x.total}</b> <span class="muted">(${x.attempts.length} attempt${x.attempts.length > 1 ? 's' : ''}: ${x.attempts.map((a) => a.score).join(', ')})</span>` : '<span class="muted">—</span>'}</td>`;
+    }).join('')}</tr>`).join('');
+    document.getElementById('gb').innerHTML = `<table class="res"><thead>${head}</thead><tbody>${rows}</tbody></table>`;
+  }
+  const stm = exercises.filter((e) => e.id.startsWith('stm32'));
+  let html = '';
+  for (const e of stm) {
+    const b = await fetch(`/api/exercises/${e.id}/renode`).then((r) => r.json());
+    html += Object.entries(b).map(([n, c]) => `<p><b>${esc(e.id)} / ${esc(n)}</b></p><pre class="code">${esc(c)}</pre>`).join('');
+  }
+  document.getElementById('renode').innerHTML = html;
+}
+load();
+</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NIAT Embedded Lab — Simulator POC</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Ccircle cx=%228%22 cy=%228%22 r=%226%22 fill=%22%234ade80%22/%3E%3C/svg%3E">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="dot"></span>NIAT Embedded Lab <span class="tag">POC</span></div>
+  <label>Exercise <select id="exercise"></select></label>
+  <label>Student ID <input id="student" value="student-001" size="12"></label>
+  <a href="instructor.html" target="_blank" class="link">Instructor view ↗</a>
+</header>
+
+<main class="grid">
+  <section class="col left">
+    <div class="card task">
+      <div class="task-head">
+        <h1 id="title">Loading…</h1>
+        <span class="pill" id="board-pill"></span>
+        <span class="pill muted" id="course-pill"></span>
+      </div>
+      <p id="task-text"></p>
+    </div>
+    <div class="card editor-card">
+      <div class="tabs" id="tabs"></div>
+      <div id="editor"></div>
+    </div>
+  </section>
+
+  <section class="col right">
+    <div class="card board-card">
+      <div class="row">
+        <h2>Board</h2>
+        <span id="status" class="status">Idle</span>
+        <div class="spacer"></div>
+        <button id="run" class="btn primary">▶ Run</button>
+        <button id="stop" class="btn" disabled>■ Stop</button>
+      </div>
+      <div id="canvas" class="canvas"></div>
+      <p class="note" id="canvas-note"></p>
+    </div>
+
+    <div class="split">
+      <div class="card">
+        <h2>Serial monitor <span class="muted small">115200 baud</span></h2>
+        <pre id="serial" class="console"></pre>
+      </div>
+      <div class="card">
+        <h2 id="reglog-title">Register log</h2>
+        <div id="reglog" class="console small-console"></div>
+      </div>
+    </div>
+
+    <div class="card results-card">
+      <div class="row">
+        <h2>Evaluation</h2>
+        <div class="spacer"></div>
+        <button id="practice" class="btn">Run practice tests</button>
+        <button id="submit" class="btn primary">Submit for grading</button>
+      </div>
+      <p class="note" id="eval-note"></p>
+      <div id="results"></div>
+    </div>
+  </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
