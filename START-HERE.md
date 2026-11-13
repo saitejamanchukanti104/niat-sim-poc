@@ -1,4 +1,3 @@
-tail -5 /tmp/niat-server.log; curl -s localhost:8080/api/exercises | head -c 200; echo; ls web/public
 # NIAT Embedded Lab: hands-on in 5 minutes
 
 The simulator starts by itself. A browser tab opens with the lab.
